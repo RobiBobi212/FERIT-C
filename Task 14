@@ -1,0 +1,74 @@
+#include <stdio.h>
+#include <stdlib.h>
+struct podaci
+{		
+	char prezime[20];
+	char ime[20];
+	int sifra;
+	char adresa[100];
+	int br_tel;
+};
+
+void Kreiraj(FILE *file, struct podaci data){
+    file=fopen("clanovi.txt", "wb");
+    fclose(file);
+}
+void Citaj(FILE *file){
+    struct podaci data = {'\0', '\0', 0, '\0', 0};
+    file=fopen("clanovi.txt","rb");
+    if (file==NULL){
+    printf("Nepostojeca datoteka");
+    exit (EXIT_FAILURE);
+    }
+    
+    fread(&data,sizeof(struct podaci),1,file);
+    printf("%s %s %d %[^\n] %d", data.prezime, data.ime, data.sifra, data.adresa, data.br_tel);
+    fclose(file);
+}
+void Dodaj(FILE *file){
+    struct podaci data = {'\0', '\0', 0, '\0', 0};
+    file=fopen("clanovi.txt","ab");
+    if (file==NULL){
+        printf("Nepostojeca datoteka");
+        exit (EXIT_FAILURE);
+    }
+    scanf("%s %s %d %[^\n] %d", data.prezime, data.ime, &data.sifra, data.adresa, &data.br_tel);
+    // fwrite(&data.prezime,1,20, file);
+    // fwrite(&data.ime,1,20, file);
+    // fwrite(&data.sifra,4,1, file);
+    // fwrite(&data.adresa,1,100, file);
+    // fwrite(&data.br_tel,4,1, file);
+    fwrite(&data,sizeof(struct podaci),1,file);
+    fclose(file);
+}
+
+
+
+int main(void){
+    int akcija = 1;
+    FILE *file = NULL;
+    struct podaci data;
+    
+    while (akcija !=4){
+    scanf("%d",&akcija);
+        switch(akcija){
+            case 1:
+            {
+            Kreiraj(file, data);
+            break;
+            }
+            case 2:
+            {
+            Citaj(file);
+            break;
+            }
+            case 3:
+            {
+            Dodaj(file);
+            break;
+            }
+        }
+        
+    }
+    exit(EXIT_SUCCESS);
+}
