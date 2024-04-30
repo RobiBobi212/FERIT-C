@@ -1,0 +1,35 @@
+#include <stdio.h>
+
+struct artikl {
+  char ime[30];
+  int kolicina;
+  float cijena;
+};
+
+int main(void)
+{
+  struct artikl proizvod[10],*max;
+  int n, i;
+  do{scanf("%d",&n);}while(n>=10);
+  max=&proizvod[0];
+  for(i=0;i<n;i++){
+      printf("Unesi ime:\n");
+      scanf("%s",&(proizvod[i].ime));
+      printf("Unesi kolicinu:\n");
+      scanf("%d",&(proizvod[i].kolicina));
+      printf("Unesi cijenu:\n");
+      scanf("%f",&(proizvod[i].cijena));
+      if(proizvod[i].cijena>max->cijena)
+      max=&proizvod[i];
+  }
+  
+
+
+
+
+
+  // ispis ne dirati, mora koristiti pokazivac max
+  printf("REZULTATI:\n");
+  printf("cijena: %.2f, kolicina: %d", max->cijena, max->kolicina);
+  return 0;
+}
