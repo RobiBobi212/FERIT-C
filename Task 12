@@ -1,0 +1,22 @@
+//Datoteka Dat.txt iz koje cete citati vec je stvorena, ali njen sadrzaj
+//nemojte mijenjati, inace nece proci testcaseovi
+
+#include <stdio.h>
+
+int main(void){
+    
+    FILE *file;
+    int i, a;
+    char temp1[30],temp2[30];
+    file=fopen("Dat.txt","r");
+    fscanf(file,"%d",&a);
+    fclose(file);
+    file=fopen("Studenti.txt","w");
+    for(i=0;i<a;i++){
+        fscanf(stdin,"%s %s",temp1,temp2);
+        fprintf(file,"%s %s\n",temp1,temp2);
+        printf("%s %s\n",temp1,temp2);
+    }
+    fclose(file);
+    return 0;
+}
