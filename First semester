@@ -1,0 +1,304 @@
+//  FIRST SEMESTER //
+
+//Task 1
+
+#include<stdio.h>
+
+int main(void)
+{
+    int x;
+    float y;
+    scanf("%d \n",&x);
+    scanf("%f",&y);
+    printf("Prvi broj je %d, a drugi je %f",x,y);
+    return 0;
+}
+
+//Task 2
+
+#include<stdio.h>
+
+int main(void)
+{
+    char znak1,znak2;
+    scanf("%c %c",&znak1,&znak2);
+    printf("%c %c %d %d %o %o %x %x",znak2,znak1,znak2,znak1,znak2,znak1);
+    return 0;
+}
+
+//Task 3
+
+#include<stdio.h>
+
+int main(void) {
+    int a,rj;
+    scanf("%d",&a);
+    rj=(a>20)&&(a%2!=0);
+    rj*=1234;
+    printf("%d",rj);
+    return 0;
+}
+
+//Task 4
+
+#include<stdio.h>
+
+int main(void) {
+    float a,b,c;
+    scanf("%f %f",&a,&b);
+        printf("%.2f %.2f\n",a,b);
+    c=b;
+    b=a;
+    a=c;
+    printf("%.2f %.2f",a,b);
+    return 0;
+}
+
+//Task 5
+
+#include<stdio.h>
+
+int main(void) {
+    int a,i;
+    scanf("%d",&a);
+    for (i=1;i<a;i++) if (a%i==0 && i!=1)break;
+    if (i==a)
+    printf("Broj %d je prost",a);
+    else
+    printf("Broj %d nije prost",a);
+    return 0;
+}
+
+//Task 6
+
+#include<stdio.h>
+
+int main(void) {
+    int a,b,c;
+    scanf("%d %d %d",&a, &b, &c);
+    if ((a+b>c && c>=a && c>=b)||(a+c>b && b>=a && b>=c)||(c+b>a && a>=c && a>=b))
+    {
+        if (a!=b&&a!=c&&b!=c)
+        printf("raznostranican");
+        else if (a==b && a==c)
+        printf("jednakostranican");
+        else printf("jednakokracan");
+    }
+    else printf("Trokut ne postoji");
+    return 0;
+}
+
+//Task 7
+
+#include <stdio.h>
+
+int main(void)
+{
+    int str[10];
+    int i, j;
+    int n=0;
+    for (i=0;i<10;i++)
+    {
+        scanf("%d",&str[i]);
+        for (j=1;j<=str[i];j++)
+            {
+            if (str[i]%j==0 && j!=1 && j!=str[i]) break;
+            if (j==str[i])n++;
+            }
+    }
+    printf("U polju ima %d prostih brojeva.",n);
+    return 0;
+}
+
+//Task 8
+
+#include<stdio.h>
+
+int main(void)
+{
+    float polje[12][14];
+    float a;
+    int m,n,i,j;
+    do{scanf("%d",&m);} while(m<3 && (m<=13));
+    do{scanf("%d",&n);} while(n<2 && n<=15);
+    for(i=0;i<m;i++)
+    {
+        for(j=0;j<n;j++)
+        {
+            scanf("%f",&polje[i][j]);
+        }
+    }
+    for(j=0;j<n;j++)
+    {
+        a=0;
+        for (i=0;i<m;i++)a+=polje[i][j];
+        printf("%f\n",(a/m));
+    }
+    return 0;
+}
+
+//Task 9
+
+#include<stdio.h>
+#include<stdlib.h>
+#include<time.h>
+int main(void)
+{
+    int polje[100];
+    int i,a;
+    srand(time(NULL));
+    
+    for(i=0;i<100;i++)
+    {
+        do{ a=-1010+rand()%(2021); }while(a%6!=0);
+        
+        polje[i]=a;
+        
+    printf("%d ",polje[i]);
+    }
+return 0;
+}
+
+//Task 10
+
+#include<stdio.h>
+
+int main(void)
+{
+    char polje1[200], polje2[200];
+    int i;
+    int j=0;
+    scanf("%199s",polje1);
+    for(i=0;polje1[i]!='\0';i++)
+    {
+        if (polje1[0]!=polje1[i])
+        {
+            polje2[j]=polje1[i];
+            j++;
+        }
+    }
+    polje2[j]='\0';
+    printf("%s",polje2);
+    return 0;
+}
+
+//Task 11
+
+#include<stdio.h>
+int slovo(char a){
+    if ((a>='A')&&(a<='Z'))
+    a+=32;
+    return a;
+}
+int main(void) {
+    char a;
+    printf("Unesi znak:");
+    scanf("%c",&a);
+    printf("%c",slovo(a));
+}
+
+//Task 12
+
+#include<stdio.h>
+#include<stdlib.h>
+#include<time.h>
+
+int pseudo(int a, int b){
+    
+    return a+rand()%(b-a+1);
+}
+
+int generacija(int x,int y){
+    int i;
+    for (i=0;i<100;i++)
+    printf("%d ",pseudo(x,y));
+}
+
+int main(void) {
+    srand(time(NULL));
+    int x,y;
+    do{
+        x=pseudo(-100,200);
+        y=pseudo(-100,200);
+    }while(2*x>y);
+    generacija(x,y);
+    return 0;
+}
+
+//Task 13
+
+#include<stdio.h>
+#include<math.h>
+#include<stdlib.h>
+float funkcija(float p[], int n)
+{
+    int i;
+    float f,petlja=0;
+    for(i=0;i<n-1;i++)
+    {
+        petlja+=fabs(((i+1)*(pow(p[i+1],2)))-1);
+      
+    }
+   
+    f=*(p+0)*petlja;
+    return f;
+}
+
+int main(void)
+{
+    float f;
+    int i;
+    float *p=NULL;
+    p=malloc(10*sizeof(float));
+    if(p==NULL) return 1;
+    for(i=0;i<10;i++)
+    {
+        scanf("%f",p+i);
+    }
+   
+    printf("%f", funkcija(p,10));
+    
+    free(p);
+    p=NULL;
+    return 0;
+}
+
+//Task 14
+
+#include<stdio.h>
+#include<stdlib.h>
+int main(void) {
+    int m,i,j,brojac=0,max,pmax;
+    int *p=NULL;
+    do{
+        printf("Unesi broj ");
+        scanf("%d",&m);
+    }while((m<=3)||(m>18));
+    
+    p=malloc(m*sizeof(int));
+    
+    if(p==NULL) return 1;
+    for(i=0;i<m;i++)
+    {
+        printf("Unesi %d broj: ",i+1);
+        scanf("%d",p+i);
+        j=*(p+i);
+        brojac=0;
+        while(j!=0)
+        {
+            brojac+=j%10;
+            j/=10;
+        }
+        if(i==0||brojac>max)
+        {
+            max=brojac;
+            pmax=*(p+i);
+        }
+    }
+    printf("%d",pmax);
+    
+    
+    free(p);
+    p=NULL;
+    return 0;
+}
