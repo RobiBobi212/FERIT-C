@@ -1,0 +1,51 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+float **matAlloc(int m, int n){
+    int i, j;
+    float **p =NULL;
+    p=(float**)malloc(m*sizeof(float*));
+    for(i=0; i<m; i++){
+        p[i]=(float*)malloc(n*sizeof(float));
+    }
+    for(i=0; i<m; i++){
+        for(j=0; j<n; j++){
+            scanf("%f",(p[i]+j));
+        }
+    }
+    return p;
+}
+
+void matWrite(float **p, FILE *t, int m, int n){
+    int i, j;
+    for(i=0; i<(m-1); i++){
+        for(j=1; j<n; j++){
+            fprintf(t,"%.2f\t",*(p[i]+j));
+            printf("%.2f\t",*(p[i]+j));
+        }
+    if(i!=(m-1)){
+        printf("\n");
+        fprintf(t,"\n");
+    }
+}
+}
+
+
+int main(void){
+    FILE *file;
+    int a, b;
+    float **p =NULL;
+    file=fopen("in.txt", "r");
+    fscanf(file,"%d %d",&a,&b);
+    fclose(file);
+    p = matAlloc(a,b);
+    file=fopen("out.txt","w");
+    printf("REZULTATI:\n");
+    matWrite(p,file,a,b);
+    fclose(file);
+    for(int i=0; i<a; i++){
+        free(p[i]);
+    }
+    free(p);
+    return(0);
+}
