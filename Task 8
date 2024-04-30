@@ -1,0 +1,72 @@
+
+#include <stdio.h>
+#include <math.h>
+
+typedef struct tocka {
+    float x;
+    float y;
+    float z;
+} Tocka;
+typedef struct trokut {
+    struct tocka *t1;
+    struct tocka *t2;
+    struct tocka *t3;
+} Trokut;
+
+void unesiTocke(Tocka*, int n);
+void unesiTrokute(Trokut*, Tocka*, int m);
+float pronadjiNajveciOpseg(Trokut*, int m);
+
+/* Ukoliko koristite dodatne funkcije mozete ih navesti nakon ovog komentara */
+
+
+int main(void)
+{
+  int n, m;
+  Tocka tocke[100];
+  Trokut trokuti[100];
+  float opseg;
+
+  printf("Upisi broj tocaka koje zelis unijeti: ");
+  scanf("%d", &n);
+  
+  printf("Upisi broj trokuta koje zelis unijeti: ");
+  scanf("%d", &m);
+
+  unesiTocke(tocke, n);
+  unesiTrokute(trokuti, tocke, m);
+
+  opseg = pronadjiNajveciOpseg(trokuti, m);
+
+  printf("REZULTATI:\n");
+  printf("%.2f", opseg);
+
+	return 0;
+}
+
+void unesiTocke(Tocka* tocka, int n){
+    for(int i=0; i<n; i++){
+        scanf("%f %f %f",&tocka[i].x,&tocka[i].y,&tocka[i].z);
+    }
+}
+void unesiTrokute(Trokut* trokut, Tocka* tocka, int m){
+    for(int i=0; i<m; i++){
+        int a,b,c;
+        scanf("%d %d %d",&a,&b,&c);
+        trokut[i].t1=&tocka[a];
+        trokut[i].t2=&tocka[b];
+        trokut[i].t3=&tocka[c];
+    }
+}
+
+
+float pronadjiNajveciOpseg(Trokut* trokut, int m) {
+    float max=0, opseg=0;
+    for(int i=0; i<m; i++){
+        opseg=(sqrt(pow(trokut[i].t2->x - trokut[i].t1->x, 2) + pow(trokut[i].t2->y-trokut[i].t1->y,2) + pow(trokut[i].t2->z-trokut[i].t1->z, 2))
+        + sqrt(pow(trokut[i].t3->x-trokut[i].t2->x, 2) + pow(trokut[i].t3->y-trokut[i].t2->y,2) + pow(trokut[i].t3->z-trokut[i].t2->z, 2))
+        + sqrt(pow(trokut[i].t1->x-trokut[i].t3->x, 2) + pow(trokut[i].t1->y-trokut[i].t3->y,2) + pow(trokut[i].t1->z-trokut[i].t3->z, 2)));
+        if (opseg>max) max=opseg;
+    }
+    return max;
+}
