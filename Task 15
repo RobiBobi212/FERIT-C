@@ -1,0 +1,39 @@
+/*Rekurzija prima jednu cjelobrojnu vrijednost koja je visina piramide. 
+U datoteku piramida.txt, koju ćete kreiratiiz programa,  „nacrtati“ piramidu od znakova '*' koja može imati maksimalnu visinu 30 redova. 
+U main() dijelu učitati visinu piramide te pozvati rekurziju. Primjer piramide je prikazan niže.
+n=5
+     *
+    *** 
+   *****
+  *******
+ *********
+ */
+
+#include <stdio.h>
+
+FILE *file = NULL;
+    
+void zvjezdice(int n, int p){
+    if(n>0){
+    int i;
+    for(i=0; i<n; i++){
+        printf(" ");
+        fprintf(file," ");
+    }
+    for(i=0; i<p; i++) {
+        printf("*");
+        fprintf(file,"*");
+    }
+    printf("\n");
+    fprintf(file,"\n");
+    zvjezdice((n-1), (p+2));
+    }
+}
+
+int main(void){
+    int n;
+    file = fopen("piramida.txt", "w");
+    scanf("%d", &n);
+    zvjezdice(n, 1);
+    fclose(file);
+}
