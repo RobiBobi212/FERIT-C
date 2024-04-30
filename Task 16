@@ -1,0 +1,21 @@
+/*Napisati C program koji će učitati cijeli broj te u datoteku naziva suma.txt te upisati sumu njegovih znamenaka.
+Za traženje sume znamenaka broja koristiti rekurziju.
+NAPOMENA: Zadatak pokazati nastavniku na satu, VPL nema testcase-ove.*/
+#include <stdio.h>
+
+int suma(int a){
+    int s=0;
+    if(a/10==0) return a;
+    s+=(suma(a/10)+a%10);
+    return s;
+}
+int main(void){
+    int a;
+    FILE *file;
+    scanf("%d",&a);
+    file=fopen("suma.txt","w");
+    printf("%d", suma(a));
+    fprintf(file,"%d", suma(a));
+    fclose(file);
+    return 0;
+}
