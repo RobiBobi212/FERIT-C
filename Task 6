@@ -1,0 +1,47 @@
+#include <stdio.h>
+#include <math.h>
+typedef struct tocka{
+    int x;
+    int y;
+    int z;
+} TOCKA;
+typedef struct trokut{
+    TOCKA *t1;
+    TOCKA *t2;
+    TOCKA *t3;
+} TROKUT;
+
+float len3d(int x1, int y1, int z1, int x2, int y2, int z2) {
+    return sqrt( pow(x2-x1, 2) + pow(y2-y1,2) + pow(z2-z1, 2));
+}
+
+int main(void){
+    int n, m, i, a, b, c;
+    float max, opseg;
+    max=0;
+    TROKUT tr[10];
+    TOCKA to[10], *ptr1, *ptr2, *ptr3;
+    do{scanf("%d",&n);}while(n>10);
+    do{scanf("%d",&m);}while(m>10);
+    for(i=0;i<n;i++){
+        scanf("%d %d %d",&to[i].x, &to[i].y, &to[i].z);
+    }
+    for(i=0;i<m;i++){
+        scanf("%d %d %d",&a, &b, &c);
+        ptr1=&to[a];
+        ptr2=&to[b];
+        ptr3=&to[c];
+        opseg=len3d(ptr1->x, ptr1->y, ptr1->z, ptr2->x, ptr2->y, ptr2->z)
+        
+        +len3d(ptr2->x, ptr2->y, ptr2->z, ptr3->x, ptr3->y, ptr3->z)
+        
+        +len3d(ptr3->x, ptr3->y, ptr3->z, ptr1->x, ptr1->y, ptr1->z);
+        
+        if(opseg>max) max=opseg;
+        
+    }
+    
+    printf("REZULTATI:\n");
+    printf("%.2f\n",max);
+    return 0;
+}
